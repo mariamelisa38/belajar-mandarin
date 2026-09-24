@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dunia Mandarin Anak - Belajar & Bermain</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #FFF9E6;
+            text-align: center;
+            margin: 0;
+            padding: 15px;
+        }
+        h1 { color: #FF6B6B; margin-bottom: 10px; font-size: 32px; }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+            padding: 30px;
+            margin-top: 15px;
+        }
+        .card {
+            background: #F0F8FF;
+            border-radius: 20px;
+            padding: 25px;
+            border: 4px dashed #4D96FF;
+        }
+        .hanzi {
+            font-size: 95px;
+            color: #4D96FF;
+            margin: 10px 0;
+        }
+        .pinyin {
+            font-size: 26px;
+            color: #6BCB77;
+            font-weight: bold;
+        }
+        .meaning {
+            font-size: 24px;
+            color: #555;
+            margin-bottom: 12px;
+        }
+        .tips {
+            font-size: 16px;
+            color: #d9534f;
+            font-weight: bold;
+            background: #fff;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            border: 2px dashed #ff6b6b;
+        }
+        button {
+            background-color: #FFD93D;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 6px;
+            transition: 0.2s;
+        }
+        button:active { transform: scale(0.95); }
+        .nav-btn { background-color: #6BCB77; color: white; padding: 12px 22px; font-size: 16px; }
+        .home-menu-btn {
+            display: block;
+            width: 80%;
+            margin: 20px auto;
+            padding: 22px;
+            font-size: 22px;
+            border-radius: 25px;
+            color: white;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .reset-btn { background-color: #ff6b6b; color: white; font-size: 13px; padding: 8px 15px; margin-top: 5px; }
+        .quiz-option {
+            background-color: #4D96FF;
+            color: white;
+            display: block;
+            width: 100%;
+            margin: 12px 0;
+            border-radius: 18px;
+            padding: 16px;
+            font-size: 20px;
+        }
+        .hidden { display: none; }
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .badge-box {
+            background: #FFF0F5;
+            border-radius: 20px;
+            padding: 12px 20px;
+            font-weight: bold;
+            color: #FF6B6B;
+            font-size: 18px;
+            display: inline-block;
+        }
+        
+        .learning-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .category-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 175px;
+            flex-shrink: 0;
+        }
+        .cat-btn {
+            font-size: 13px;
+            padding: 10px 8px;
+            border-radius: 15px;
+            background-color: #f0f0f0;
+            color: #555;
+            border: 2px solid transparent;
+            text-align: center;
+            width: 100%;
+            box-shadow: none;
+            margin: 0;
+        }
+        .cat-btn.active {
+            transform: scale(1.05);
+            background-color: #FF6B6B;
+            color: white;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            font-weight: bold;
+        }
+        .learning-content {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .progress-notice {
+            font-size: 18px;
+            font-weight: bold;
+            color: #4D96FF;
+            margin-bottom: 15px;
+        }
+
+        /* Styling untuk Chatbot Interaktif */
+        .chat-box {
+            background: #F9F9F9;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            height: 310px;
+            overflow-y: auto;
+            padding: 15px;
+            text-align: left;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .chat-bubble {
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 88%;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .chat-user {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            color: #111;
+        }
+        .chat-ai {
+            background-color: #E2EEFF;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            color: #333;
+        }
+        .chat-options-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .chat-option-btn {
+            background-color: #4D96FF;
+            color: white;
+            font-size: 13px;
+            padding: 8px 14px;
+            border-radius: 15px;
+            margin: 0;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🐼 Dunia Mandarin Anak 🐼</h1>
+    
+    <div class="container" style="padding: 15px; margin-bottom: 10px; margin-top: 5px;">
+        <div class="badge-box">
+            🌟 Total Bintang: <span id="star-count">0</span>
+            <br>
+            <button class="reset-btn" onclick="resetBintang()">🗑️ Reset Bintang</button>
+        </div>
+    </div>
+
+    <!-- HALAMAN 0: MENU HOME (UTAMA) -->
+    <div id="menu-home" class="container">
+        <h2>Halo Anak Pintar! 👋</h2>
+        <p style="color: #666; font-size: 18px; margin-bottom: 25px;">Mau main atau belajar apa hari ini?</p>
+        
+        <button class="home-menu-btn" style="background-color: #4D96FF;" onclick="pindahKeHalaman('belajar')">
+            📚 Masuk Kamar Belajar
+        </button>
+        <button class="home-menu-btn" style="background-color: #FF6B6B;" onclick="pindahKeHalaman('kuis')">
+            🎮 Main Kuis Seru (10 Soal)
+        </button>
+        <button class="home-menu-btn" style="background-color: #6BCB77;" onclick="pindahKeHalaman('chat')">
+            💬 Teman Ngobrol AI
+        </button>
+    </div>
+
+    <!-- HALAMAN 1: KAMAR BELAJAR KOSAKATA -->
+    <div id="menu-belajar" class="container hidden">
+        <div class="top-nav">
+            <button onclick="pindahKeHalaman('home')" style="background-color: #ccc; font-size: 14px; padding: 8px 16px; margin:0;">🏠 Menu Utama</button>
+            <h3 style="margin: 0; color: #FF6B6B; font-size: 22px;">Kamar Belajar</h3>
+        </div>
+
+        <div class="learning-layout">
+            <!-- Kolom Tombol Kategori di Samping Kiri -->
+            <div class="category-sidebar">
+                <span style="font-size: 13px; font-weight: bold; color: #666; text-align: center;">Pilih Kategori:</span>
+                <button id="btn-Semua" class="cat-btn" onclick="pilihKategori('Semua')">🌟 Semua</button>
+                <button id="btn-Keluarga" class="cat-btn" onclick="pilihKategori('Keluarga')">👨‍👩‍👧 Keluarga</button>
+                <button id="btn-Hewan" class="cat-btn" onclick="pilihKategori('Hewan')">🐱 Hewan</button>
+                <button id="btn-Warna" class="cat-btn" onclick="pilihKategori('Warna')">🎨 Warna</button>
+                <button id="btn-Angka" class="cat-btn" onclick="pilihKategori('Angka')">🔢 Angka</button>
+            </div>
+
+            <!-- Area Kartu Belajar di Kanan -->
+            <div class="learning-content">
+                <div id="learning-placeholder" style="padding: 60px 10px; color: #888; font-style: italic; font-size: 16px;">
+                    👈 Yuk, klik salah satu kategori di samping kiri untuk mulai belajar!
+                </div>
+
+                <div id="learning-card-area" class="hidden">
+                    <div class="card">
+                        <div id="hanzi" class="hanzi">爸爸</div>
+                        <div id="pinyin" class="pinyin">Bàba</div>
+                        <div id="meaning" class="meaning">Papa / Ayah</div>
+                        <div id="tips" class="tips">🗣️ Cara Baca: Paba (b dibaca p)</div>
+                        <br>
+                        <button onclick="suaraAudio(); mainkanEfekSuara('klik')" style="background-color: #FF6B6B; color: white; padding: 10px 20px; font-size: 15px;">🔁 Ulangi Suara</button>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <button class="nav-btn" onclick="mundur(); mainkanEfekSuara('klik')">⬅️ Prev</button>
+                        <button class="nav-btn" onclick="maju(); mainkanEfekSuara('klik')">Next ➡️</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HALAMAN 2: MINI-GAME KUIS SESI 10 SOAL -->
+    <div id="menu-kuis" class="container hidden">
+        <div class="top-nav">
+            <button onclick="pindahKeHalaman('home')" style="background-color: #ccc; font-size: 14px; padding: 8px 16px; margin:0;">🏠 Menu Utama</button>
+            <h3 style="margin: 0; color: #FF6B6B; font-size: 22px;">Kuis Sesi</h3>
+        </div>
+
+        <div id="quiz-active-area">
+            <div id="progress-notice" class="progress-notice">Soal ke-1 dari 10</div>
+            <h2 style="font-size: 24px;">Tebak Arti Kata!</h2>
+            <p style="font-size: 16px;">Manakah arti yang benar untuk:</p>
+            <div id="quiz-hanzi" class="hanzi" style="font-size: 85px;">爸爸</div>
+            <div id="quiz-options"></div>
+            <h3 id="quiz-feedback" style="margin-top: 15px; min-height: 28px; font-size: 18px;"></h3>
+            
+            <div style="margin-top: 20px;">
+                <button onclick="soalBerikutnya(); mainkanEfekSuara('klik')" style="background-color: #FFD93D; color: #333; font-size: 15px;">➡️ Lewati Soal</button>
+                <button onclick="mulaiSesiKuis(); mainkanEfekSuara('klik')" style="background-color: #ff6b6b; color: white; font-size: 15px;">🔄 Ulangi Dari Awal</button>
+            </div>
+        </div>
+
+        <div id="quiz-result-area" class="hidden">
+            <h2 style="font-size: 26px;">🏆 Selesai! Sesi 10 Soal Berakhir</h2>
+            <p id="result-text" style="font-size: 20px; color: #555; margin: 25px 0;"></p>
+            <button onclick="mulaiSesiKuis(); mainkanEfekSuara('klik')" style="background-color: #6BCB77; color: white; font-size: 18px; padding: 15px 30px;">🎮 Main Sesi Baru</button>
+        </div>
+    </div>
+
+    <!-- HALAMAN 3: TEMAN NGOBROL AI (CHATBOT PILIHAN TOMBOL) -->
+    <div id="menu-chat" class="container hidden">
+        <div class="top-nav">
+            <button onclick="pindahKeHalaman('home')" style="background-color: #ccc; font-size: 14px; padding: 8px 16px; margin:0;">🏠 Menu Utama</button>
+            <h3 style="margin: 0; color: #6BCB77; font-size: 22px;">💬 Teman Ngobrol AI</h3>
+        </div>
+        <p style="font-size: 13px; color: #666; margin-bottom: 8px;">Pilih tombol topik obrolan di bawah untuk berlatih bersama Panda:</p>
+        
+        <div id="chat-box" class="chat-box">
+            <div class="chat-bubble chat-ai">
+                🐼 <b>Panda AI:</b><br>
+                <span style="color: #333; font-weight: bold;">Halo! Pilih salah satu topik obrolan di bawah ya, nanti aku temani latihan ngobrol!</span>
+            </div>
+        </div>
+
+        <div class="chat-options-container">
+            <button class="chat-option-btn" onclick="pilihPercakapan('halo')">👋 Halo, apa kabar?</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('nama')">🐼 Siapa namamu?</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('sekolah')">🏫 Berangkat ke sekolah</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('toilet')">🚻 Izin ke toilet</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('minum')">🥤 Mau minum</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('makan')">🍚 Lapar / mau makan</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('alamat')">📍 Menanyakan tempat / alamat</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('terimakasih')">🙏 Mengucapkan terima kasih</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('maaf')">🙇 Meminta maaf</button>
+            <button class="chat-option-btn" onclick="pilihPercakapan('bye')">👋 Sampai jumpa!</button>
+        </div>
+        
+        <div style="margin-top: 10px;">
+            <button onclick="resetChat(); mainkanEfekSuara('klik')" style="background-color: #ff6b6b; color: white; font-size: 12px; padding: 6px 15px;">🔄 Mulai Ulang Obrolan</button>
+        </div>
+    </div>
+
+    <script>
+        const keluargaMandarin = [
+            { h: "爸爸", p: "Bàba", a: "Papa / Ayah", t: "🗣️ Cara Baca: Paba (b dibaca p)" },
+            { h: "妈妈", p: "Māma", a: "Mama / Ibu", t: "🗣️ Cara Baca: Mama" },
+            { h: "爷爷", p: "Yéye", a: "Kakek (dari Ayah)", t: "🗣️ Cara Baca: Yeye" },
+            { h: "奶奶", p: "Nǎinai", a: "Nenek (dari Ayah)", t: "🗣️ Cara Baca: Nainai" },
+            { h: "外公", p: "Wàigōng", a: "Kakek (dari Ibu)", t: "🗣️ Cara Baca: Waigung (g dibaca k tipis)" },
+            { h: "外婆", p: "Wàipó", a: "Nenek (dari Ibu)", t: "🗣️ Cara Baca: Waibo" },
+            { h: "哥哥", p: "Gēge", a: "Kakak Laki-laki", t: "🗣️ Cara Baca: Keke (g dibaca k)" },
+            { h: "姐姐", p: "Jiějie", a: "Kakak Perempuan", t: "🗣️ Cara Baca: Ciecie (j dibaca c)" },
+            { h: "弟弟", p: "Dìdi", a: "Adik Laki-laki", t: "🗣️ Cara Baca: Titi (d dibaca t)" },
+            { h: "妹妹", p: "Mèimei", a: "Adik Perempuan", t: "🗣️ Cara Baca: Meimei" },
+            { h: "叔叔", p: "Shūshu", a: "Paman / Om", t: "🗣️ Cara Baca: Syusyu (sh dibaca sy)" },
+            { h: "姑姑", p: "Gūgu", a: "Bibi / Tante", t: "🗣️ Cara Baca: Gugu (g dibaca k)" }
+        ];
+
+        const hewanMandarin = [
+            { h: "猫", p: "Māo", a: "Kucing", t: "🗣️ Cara Baca: Mao" },
+            { h: "狗", p: "Gǒu", a: "Anjing", t: "🗣️ Cara Baca: Gou (g dibaca k)" },
+            { h: "鱼", p: "Yú", a: "Ikan", t: "🗣️ Cara Baca: Yu (bibir dicucu seperti u)" },
+            { h: "鸟", p: "Niǎo", a: "Burung", t: "🗣️ Cara Baca: Niao" },
+            { h: "熊猫", p: "Xióngmāo", a: "Panda", t: "🗣️ Cara Baca: Syiongmao (x dibaca sy)" },
+            { h: "兔子", p: "Tùzi", a: "Kelinci", t: "🗣️ Cara Baca: Tuzi (t tebal, z dibaca dz)" },
+            { h: "大象", p: "Dàxiàng", a: "Gajah", t: "🗣️ Cara Baca: Dasyang (d dibaca t)" },
+            { h: "狮子", p: "Shīzi", a: "Singa", t: "🗣️ Cara Baca: Syidzi (sh dibaca sy)" },
+            { h: "老虎", p: "Lǎohǔ", a: "Harimau", t: "🗣️ Cara Baca: Laohu (h agak parau)" },
+            { h: "猴子", p: "Hóuzi", a: "Monyet", t: "🗣️ Cara Baca: Houzi" },
+            { h: "马", p: "Mǎ", a: "Kuda", t: "🗣️ Cara Baca: Ma" },
+            { h: "牛", p: "Niú", a: "Sapi / Kerbau", t: "🗣️ Cara Baca: Nio" },
+            { h: "猪", p: "Zhū", a: "Babi", t: "🗣️ Cara Baca: Chu (zh dibaca c tebal)" },
+            { h: "羊", p: "Yáng", a: "Kambing / Domba", t: "🗣️ Cara Baca: Yang" },
+            { h: "鸭", p: "Yā", a: "Bebek", t: "🗣️ Cara Baca: Ya" },
+            { h: "鸡", p: "Jī", a: "Ayam", t: "🗣️ Cara Baca: Ci (j dibaca c tipis)" },
+            { h: "青蛙", p: "Qīngwā", a: "Katak", t: "🗣️ Cara Baca: Cingwa (q dibaca ch tipis)" },
+            { h: "蛇", p: "Shé", a: "Ular", t: "🗣️ Cara Baca: Se (sh dibaca sy)" },
+            { h: "长颈鹿", p: "Chángjǐnglù", a: "Jerapah", t: "🗣️ Cara Baca: Cangcinglu (ch dibaca c tebal)" },
+            { h: "蝴蝶", p: "Húdié", a: "Kupu-kupu", t: "🗣️ Cara Baca: Hutie (d dibaca t)" }
+        ];
+
+        const warnaMandarin = [
+            { h: "红", p: "Hóng", a: "Warna Merah", t: "🗣️ Cara Baca: Hong" },
+            { h: "蓝", p: "Lán", a: "Warna Biru", t: "🗣️ Cara Baca: Lan" },
+            { h: "黄", p: "Huáng", a: "Warna Kuning", t: "🗣️ Cara Baca: Huang" },
+            { h: "绿", p: "Lǜ", a: "Warna Hijau", t: "🗣️ Cara Baca: Lu (vokal ü)" },
+            { h: "黑", p: "Hēi", a: "Warna Hitam", t: "🗣️ Cara Baca: Hei" },
+            { h: "白", p: "Bái", a: "Warna Putih", t: "🗣️ Cara Baca: Pai (b dibaca p)" },
+            { h: "粉红", p: "Fěnhóng", a: "Warna Merah Muda", t: "🗣️ Cara Baca: Fenhong (f tetap f)" },
+            { h: "紫", p: "Zǐ", a: "Warna Ungu", t: "🗣️ Cara Baca: Dzi (z dibaca dz)" },
+            { h: "橙", p: "Chéng", a: "Warna Jingga / Oranye", t: "🗣️ Cara Baca: Ceng (ch dibaca c tebal)" },
+            { h: "棕", p: "Zōng", a: "Warna Cokelat", t: "🗣️ Cara Baca: Cong (z dibaca dz)" }
+        ];
+
+        const angkaMandarin = [];
+        const baseAngka = [
+            { h: "一", p: "Yī", indo: "I" },
+            { h: "二", p: "Èr", indo: "Er" },
+            { h: "三", p: "Sān", indo: "San" },
+            { h: "四", p: "Sì", indo: "Si" },
+            { h: "五", p: "Wǔ", indo: "Wu" },
+            { h: "六", p: "Liù", indo: "Liu" },
+            { h: "七", p: "Qī", indo: "Ci (q=ch tipis)" },
+            { h: "八", p: "Bā", indo: "Pa (b=p)" },
+            { h: "九", p: "Jiǔ", indo: "Ciu (j=c tipis)" },
+            { h: "十", p: "Shí", indo: "Syi (sh=sy)" }
+        ];
+
+        const satuanMap = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+        const indoSatuan = ["", "I", "Er", "San", "Si", "Wu", "Liu", "Ci", "Pa", "Ciu"];
+
+        for (let i = 1; i <= 100; i++) {
+            let hStr = "";
+            let pStr = "";
+            let bacaIndo = "";
+
+            if (i <= 10) {
+                hStr = baseAngka[i-1].h;
+                pStr = baseAngka[i-1].p;
+                bacaIndo = baseAngka[i-1].indo;
+            } else if (i < 20) {
+                let sat = i % 10;
+                hStr = "十" + satuanMap[sat];
+                pStr = "Shí " + baseAngka[sat-1].p;
+                bacaIndo = "Syi " + indoSatuan[sat];
+            } else if (i === 100) {
+                hStr = "一百";
+                pStr = "Yì bǎi";
+                bacaIndo = "I Pai (b=p)";
+            } else {
+                let pul = Math.floor(i / 10);
+                let sat = i % 10;
+                hStr = satuanMap[pul] + "十" + (sat > 0 ? satuanMap[sat] : "");
+                pStr = baseAngka[pul-1].p + " Shí " + (sat > 0 ? baseAngka[sat-1].p : "");
+                bacaIndo = indoSatuan[pul] + " Syi" + (sat > 0 ? " " + indoSatuan[sat] : "");
+            }
+
+            angkaMandarin.push({
+                h: hStr,
+                p: pStr,
+                a: `Angka ${i}`,
+                t: `🗣️ Cara Baca: ${bacaIndo}`
+            });
+        }
+
+        const kamusLengkap = [
+            ...keluargaMandarin.map(item => ({ hanzi: item.h, pinyin: item.p, arti: item.a, kategori: "Keluarga", tips: item.t })),
+            ...hewanMandarin.map(item => ({ hanzi: item.h, pinyin: item.p, arti: item.a, kategori: "Hewan", tips: item.t })),
+            ...warnaMandarin.map(item => ({ hanzi: item.h, pinyin: item.p, arti: item.a, kategori: "Warna", tips: item.t })),
+            ...angkaMandarin.map(item => ({ hanzi: item.h, pinyin: item.p, arti: item.a, kategori: "Angka", tips: item.t }))
+        ];
+
+        let kamusAktif = [];
+        let indeksAktif = 0;
+        let totalBintang = 0;
+
+        let soalKe = 1;
+        let skorSesi = 0;
+        const totalSoalPerSesi = 10;
+        let soalAktif = null;
+
+        function resetBintang() {
+            mainkanEfekSuara('klik');
+            totalBintang = 0;
+            document.getElementById("star-count").innerText = totalBintang;
+        }
+
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function mainkanEfekSuara(jenis) {
+            if (audioCtx.state === 'suspended') { audioCtx.resume(); }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (jenis === 'klik') {
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+            } else if (jenis === 'benar') {
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+            } else if (jenis === 'salah') {
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.start(); osc.stop(audioCtx.currentTime + 0.2);
+            }
+        }
+
+        function pindahKeHalaman(tujuan) {
+            mainkanEfekSuara('klik');
+            document.getElementById('menu-home').classList.add('hidden');
+            document.getElementById('menu-belajar').classList.add('hidden');
+            document.getElementById('menu-kuis').classList.add('hidden');
+            document.getElementById('menu-chat').classList.add('hidden');
+
+            if (tujuan === 'home') {
+                document.getElementById('menu-home').classList.remove('hidden');
+                window.speechSynthesis.cancel();
+            } else if (tujuan === 'belajar') {
+                document.getElementById('menu-belajar').classList.remove('hidden');
+                document.getElementById('learning-placeholder').classList.remove('hidden');
+                document.getElementById('learning-card-area').classList.add('hidden');
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                window.speechSynthesis.cancel();
+            } else if (tujuan === 'kuis') {
+                document.getElementById('menu-kuis').classList.remove('hidden');
+                mulaiSesiKuis();
+            } else if (tujuan === 'chat') {
+                document.getElementById('menu-chat').classList.remove('hidden');
+            }
+        }
+
+        function pilihKategori(kategori) {
+            mainkanEfekSuara('klik');
+            
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-' + kategori).classList.add('active');
+
+            if (kategori === 'Semua') {
+                kamusAktif = [...kamusLengkap];
+            } else {
+                kamusAktif = kamusLengkap.filter(item => item.kategori === kategori);
+            }
+            indeksAktif = 0;
+            
+            document.getElementById('learning-placeholder').classList.add('hidden');
+            document.getElementById('learning-card-area').classList.remove('hidden');
+            updateTampilan();
+        }
+
+        function updateTampilan() {
+            if (kamusAktif.length === 0) return;
+            document.getElementById("hanzi").innerText = kamusAktif[indeksAktif].hanzi;
+            document.getElementById("pinyin").innerText = kamusAktif[indeksAktif].pinyin;
+            document.getElementById("meaning").innerText = kamusAktif[indeksAktif].arti;
+            document.getElementById("tips").innerText = kamusAktif[indeksAktif].tips;
+            
+            suaraAudio();
+        }
+
+        function maju() {
+            indeksAktif = (indeksAktif + 1) % kamusAktif.length;
+            updateTampilan();
+        }
+
+        function mundur() {
+            indeksAktif = (indeksAktif - 1 + kamusAktif.length) % kamusAktif.length;
+            updateTampilan();
+        }
+
+        function suaraAudio() {
+            if(kamusAktif.length === 0) return;
+            window.speechSynthesis.cancel();
+            const teks = kamusAktif[indeksAktif].hanzi;
+            const utterance = new SpeechSynthesisUtterance(teks);
+            utterance.lang = 'zh-CN';
+            utterance.rate = 0.8;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function mulaiSesiKuis() {
+            soalKe = 1;
+            skorSesi = 0;
+            document.getElementById('quiz-active-area').classList.remove('hidden');
+            document.getElementById('quiz-result-area').classList.add('hidden');
+            muatSoal();
+        }
+
+        function muatSoal() {
+            if (soalKe > totalSoalPerSesi) {
+                tampilkanHasilSesi();
+                return;
+            }
+
+            document.getElementById("progress-notice").innerText = `Soal ke-${soalKe} dari ${totalSoalPerSesi}`;
+            document.getElementById("quiz-feedback").innerText = "";
+            
+            soalAktif = kamusLengkap[Math.floor(Math.random() * kamusLengkap.length)];
+            document.getElementById("quiz-hanzi").innerText = soalAktif.hanzi;
+
+            let pilihan = [soalAktif.arti];
+            while (pilihan.length < 3) {
+                let pengecoh = kamusLengkap[Math.floor(Math.random() * kamusLengkap.length)].arti;
+                if (!pilihan.includes(pengecoh)) {
+                    pilihan.push(pengecoh);
+                }
+            }
+            pilihan.sort(() => Math.random() - 0.5);
+
+            let containerOpsi = document.getElementById("quiz-options");
+            containerOpsi.innerHTML = "";
+            pilihan.forEach(item => {
+                let btn = document.createElement("button");
+                btn.className = "quiz-option";
+                btn.innerText = item;
+                btn.onclick = () => cekJawabanSesi(item, btn);
+                containerOpsi.appendChild(btn);
+            });
+        }
+
+        function cekJawabanSesi(pilihanAnak, tombol) {
+            let feedback = document.getElementById("quiz-feedback");
+            if (pilihanAnak === soalAktif.arti) {
+                mainkanEfekSuara('benar');
+                skorSesi += 1;
+                totalBintang += 1;
+                document.getElementById("star-count").innerText = totalBintang;
+                feedback.style.color = "#28a745";
+                feedback.innerText = "🎉 Pintar Sekali! Benar! +1 Bintang";
+                tombol.style.backgroundColor = "#28a745";
+                
+                let allButtons = document.querySelectorAll('.quiz-option');
+                allButtons.forEach(b => b.onclick = null);
+
+                setTimeout(() => {
+                    soalKe++;
+                    muatSoal();
+                }, 1200);
+            } else {
+                mainkanEfekSuara('salah');
+                feedback.style.color = "#dc3545";
+                feedback.innerText = "❌ Belum tepat, yuk coba tebak lagi!";
+                tombol.style.backgroundColor = "#dc3545";
+            }
+        }
+
+        function soalBerikutnya() {
+            soalKe++;
+            muatSoal();
+        }
+
+        function tampilkanHasilSesi() {
+            document.getElementById('quiz-active-area').classList.add('hidden');
+            document.getElementById('quiz-result-area').classList.remove('hidden');
+            document.getElementById('result-text').innerHTML = `Hebat! Kamu berhasil menjawab benar <b>${skorSesi}</b> dari <b>${totalSoalPerSesi}</b> soal dalam sesi ini! 🌟`;
+        }
+
+        // --- SISTEM PERCAKAPAN PANDA AI (DENGAN TERJEMAHAN PENUH) ---
+        function pilihPercakapan(tipe) {
+            mainkanEfekSuara('klik');
+            let chatBox = document.getElementById("chat-box");
+
+            let userHanzi = "", userPinyin = "", userIndo = "";
+            let aiHanzi = "", aiPinyin = "", aiIndo = "";
+
+            if (tipe === 'halo') {
+                userHanzi = "你好！"; userPinyin = "Nǐ hǎo!"; userIndo = "Halo, apa kabar?";
+                aiHanzi = "我很好，谢谢！你呢？"; aiPinyin = "Wǒ hěn hǎo, xièxiè! Nǐ ne?"; aiIndo = "Aku baik-baik saja, terima kasih! Kamu bagaimana?";
+            } else if (tipe === 'nama') {
+                userHanzi = "你叫什么名字？"; userPinyin = "Nǐ jiào shénme míngzi?"; userIndo = "Siapa namamu?";
+                aiHanzi = "我叫熊猫，很高兴认识你！"; aiPinyin = "Wǒ jiào xióngmāo, hěn gāoxìng rènshi nǐ!"; aiIndo = "Namaku Panda, senang berkenalan denganmu!";
+            } else if (tipe === 'sekolah') {
+                userHanzi = "我要去学校了，再见！"; userPinyin = "Wǒ yào qù xuéxiào le, zàijiàn!"; userIndo = "Aku mau berangkat ke sekolah, dadah!";
+                aiHanzi = "好的，祝你今天学习愉快！"; aiPinyin = "Hǎo de, zhù nǐ jītiān xuéxí yúkuài!"; aiIndo = "Baiklah, semoga kamu senang belajar hari ini!";
+            } else if (tipe === 'toilet') {
+                userHanzi = "请问，洗手间在哪里？"; userPinyin = "Qǐngwèn, xǐshǒujiān zài nǎlǐ?"; userIndo = "Permisi, di mana toiletnya?";
+                aiHanzi = "洗手间在那边。"; aiPinyin = "Xǐshǒujiān zài nàbiān."; aiIndo = "Toilet ada di sebelah sana.";
+            } else if (tipe === 'minum') {
+                userHanzi = "我想喝水。"; userPinyin = "Wǒ xiǎng hē shuǐ."; userIndo = "Aku mau minum air.";
+                aiHanzi = "好的，给你水。"; aiPinyin = "Hǎo de, gěi nǐ shuǐ."; aiIndo = "Baiklah, ini air untukmu.";
+            } else if (tipe === 'makan') {
+                userHanzi = "我饿了，我想吃饭。"; userPinyin = "Wǒ è le, wǒ xiǎng chī fàn."; userIndo = "Aku lapar, aku mau makan nasi.";
+                aiHanzi = "多吃一点吧！"; aiPinyin = "Duō chī yīdiǎn ba!"; aiIndo = "Makanlah yang banyak ya!";
+            } else if (tipe === 'alamat') {
+                userHanzi = "请问，这是哪里？"; userPinyin = "Qǐngwèn, zhè shì nǎlǐ?"; userIndo = "Permisi, ini di mana / alamat apa?";
+                aiHanzi = "这里是快乐学习园。"; aiPinyin = "Zhè lǐ shì kuàilè xuéxí yuán."; aiIndo = "Di sini adalah Taman Belajar Ceria.";
+            } else if (tipe === 'terimakasih') {
+                userHanzi = "谢谢你！"; userPinyin = "Xièxiè nǐ!"; userIndo = "Terima kasih!";
+                aiHanzi = "不客气！"; aiPinyin = "Bú kèqi!"; aiIndo = "Sama-sama!";
+            } else if (tipe === 'maaf') {
+                userHanzi = "对不起。"; userPinyin = "Duìbuqǐ."; userIndo = "Maaf.";
+                aiHanzi = "没关系，别放在心上。"; aiPinyin = "Méi guānxi, bié fàng zài xīn shàng."; aiIndo = "Tidak apa-apa, jangan dipikirkan.";
+            } else if (tipe === 'bye') {
+                userHanzi = "再见！"; userPinyin = "Zàijiàn!"; userIndo = "Sampai jumpa!";
+                aiHanzi = "再见！祝你有美好的一天！"; aiPinyin = "Zàijiàn! Zhù nǐ yǒu měihǎo de yì tiān!"; aiIndo = "Sampai jumpa! Semoga harimu menyenangkan!";
+            }
+
+            // 1. Tampilkan pesan anak (Hijau)
+            let userBubble = document.createElement("div");
+            userBubble.className = "chat-bubble chat-user";
+            userBubble.innerHTML = `👤 <b>Kamu:</b><br>
+                                    <span style="font-size:20px; color:#0b6623; font-weight:bold;">${userHanzi}</span><br>
+                                    <span style="color:#004d40; font-weight:bold;">${userPinyin}</span><br>
+                                    <span style="color:#333;">(${userIndo})</span>`;
+            chatBox.appendChild(userBubble);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Suara anak
+            window.speechSynthesis.cancel();
+            const uttUser = new SpeechSynthesisUtterance(userHanzi);
+            uttUser.lang = 'zh-CN'; uttUser.rate = 0.8;
+            window.speechSynthesis.speak(uttUser);
+
+            // 2. Tampilkan balasan Panda AI (Biru) setelah jeda
+            setTimeout(() => {
+                let aiBubble = document.createElement("div");
+                aiBubble.className = "chat-bubble chat-ai";
+                aiBubble.innerHTML = `🐼 <b>Panda AI:</b><br>
+                                      <span style="font-size:22px; color:#4D96FF; font-weight:bold;">${aiHanzi}</span><br>
+                                      <span style="color:#2e7d32; font-weight:bold;">${aiPinyin}</span><br>
+                                      <span style="color:#222; font-weight:bold;">(${aiIndo})</span>`;
+                chatBox.appendChild(aiBubble);
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                // Suara AI
+                const uttAI = new SpeechSynthesisUtterance(aiHanzi);
+                uttAI.lang = 'zh-CN'; uttAI.rate = 0.8;
+                window.speechSynthesis.speak(uttAI);
+            }, 800);
+        }
+
+        function resetChat() {
+            let chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML = `
+                <div class="chat-bubble chat-ai">
+                    🐼 <b>Panda AI:</b><br>
+                    <span style="color: #333; font-weight: bold;">Halo! Pilih salah satu topik obrolan di bawah ya, nanti aku temani latihan ngobrol!</span>
+                </div>
+            `;
+        }
+    </script>
+
+</body>
+</html>
